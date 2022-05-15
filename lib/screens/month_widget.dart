@@ -54,7 +54,7 @@ class _MonthWidgetState extends State<MonthWidget> {
       // ignore: prefer_const_literals_to_create_immutables
       children: <Widget>[
         Text(
-          "${widget.total.toStringAsFixed(2)}\€",
+          "${widget.total.toStringAsFixed(2)}€",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 40.0,
@@ -119,7 +119,7 @@ class _MonthWidgetState extends State<MonthWidget> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "$precio\€",
+              "$precio€",
               style: TextStyle(
                   color: Colors.deepPurple,
                   fontWeight: FontWeight.w500,
