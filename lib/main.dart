@@ -38,7 +38,8 @@ class MyApp extends StatelessWidget {
               return LoginPage();
             }
           },
-          "/register_page": (context) => RegisterPage()
+          "/register_page": (context) => const RegisterPage(),
+          "/login_page": (context) => const LoginPage(),
         },
       ),
     );

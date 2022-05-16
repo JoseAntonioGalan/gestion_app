@@ -101,12 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               });
 
                               if (user != null) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
-                                  ),
-                                  (route) => false,
-                                );
+                                Navigator.of(context).pushNamed("/login_page");
                               }
                             }
                           },
