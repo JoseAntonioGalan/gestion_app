@@ -109,7 +109,7 @@ class _MonthWidgetState extends State<MonthWidget> {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
       subtitle: Text(
-        "$porcentaje% of gatos",
+        "$porcentaje% de tus gastos",
         style: TextStyle(fontSize: 16.0, color: Colors.grey),
       ),
       trailing: Container(
