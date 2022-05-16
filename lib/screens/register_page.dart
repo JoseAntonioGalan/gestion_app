@@ -1,23 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gestion_app/estados/login_state.dart';
 import 'package:gestion_app/repository/authentication_client.dart';
+import 'package:gestion_app/screens/login_page.dart';
 import 'package:gestion_app/utils/validator.dart';
-import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
 
   final _emailController = TextEditingController();
 
   final _passwordController = TextEditingController();
+
+  final _nameFocusNode = FocusNode();
 
   final _emailFocusNode = FocusNode();
 
@@ -31,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        _nameFocusNode.unfocus();
         _emailFocusNode.unfocus();
         _passwordFocusNode.unfocus();
       },
@@ -44,12 +48,23 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFormField(
+                  controller: _nameController,
+                  focusNode: _nameFocusNode,
+                  validator: Validator.name,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Introduce tu nombre',
+                    label: Text('Nombre'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
                   controller: _emailController,
                   focusNode: _emailFocusNode,
                   validator: Validator.email,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Introduce tu Email',
+                    hintText: 'Introduce tu email',
                     label: Text('Email'),
                   ),
                 ),
@@ -76,39 +91,34 @@ class _LoginPageState extends State<LoginPage> {
                               setState(() {
                                 _isProgress = true;
                               });
-                              final User? user = await _authClient.loginUser(
+                              final User? user = await _authClient.registerUser(
+                                name: _nameController.text,
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               );
                               setState(() {
                                 _isProgress = false;
                               });
-                              print(user);
+
                               if (user != null) {
-                                var login = Provider.of<LoginState>(context,
-                                    listen: false);
-                                login.login();
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                  ),
+                                  (route) => false,
+                                );
                               }
                             }
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(16.0),
                             child: Text(
-                              'Iniciar Sesión',
+                              'Registrarse',
                               style: TextStyle(fontSize: 22.0),
                             ),
                           ),
                         ),
-                      ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/register_page");
-                  },
-                  child: const Text(
-                    'No tienes cuenta? Pulsa aquí para registrarte',
-                  ),
-                )
+                      )
               ],
             ),
           ),

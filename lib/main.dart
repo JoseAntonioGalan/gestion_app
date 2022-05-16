@@ -4,6 +4,7 @@ import 'package:gestion_app/estados/login_state.dart';
 import 'package:gestion_app/firebase_options.dart';
 import 'package:gestion_app/screens/home_page.dart';
 import 'package:gestion_app/screens/login_page.dart';
+import 'package:gestion_app/screens/register_page.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -15,6 +16,7 @@ void main() async {
   runApp(MyApp());
 }
 
+// ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
               return LoginPage();
             }
           },
+          "/register_page": (context) => RegisterPage()
         },
       ),
     );
