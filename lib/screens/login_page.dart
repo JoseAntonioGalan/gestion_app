@@ -37,6 +37,9 @@ class _LoginPageState extends State<LoginPage> {
         _passwordFocusNode.unfocus();
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("Inicio de Sesión"),
+        ),
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -65,6 +68,18 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(),
                     hintText: 'Introduce tu contraseña',
                     label: Text('Contraseña'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () {
+                    print("Olvidaste la contraseña");
+                  },
+                  child: const Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      'Olvidaste la contraseña?',
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),

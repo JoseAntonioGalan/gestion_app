@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestion_app/estados/login_state.dart';
 import 'package:gestion_app/screens/month_widget.dart';
+import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
 class MyHomePage extends StatefulWidget {
@@ -33,13 +35,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _bottomAction(IconData icon) {
+  Widget _bottomAction(IconData icon, VoidCallback function) {
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Icon(icon),
       ),
-      onTap: () {},
+      onTap: function,
     );
   }
 
@@ -54,11 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             // ignore: deprecated_member_use
-            _bottomAction(FontAwesomeIcons.history),
-            _bottomAction(FontAwesomeIcons.chartPie),
+            _bottomAction(FontAwesomeIcons.history, () {}),
+            _bottomAction(FontAwesomeIcons.chartPie, () {}),
             SizedBox(width: 48.0),
-            _bottomAction(FontAwesomeIcons.wallet),
-            _bottomAction(Icons.settings),
+            _bottomAction(FontAwesomeIcons.wallet, () {}),
+            _bottomAction(Icons.settings, () {
+              Provider.of<LoginState>(context, listen: false).logout();
+            }),
           ],
         ),
       ),

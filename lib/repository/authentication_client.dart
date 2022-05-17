@@ -68,7 +68,8 @@ class AuthenticationClient {
         User? user = userCredential.user;
         return user;
       } on FirebaseAuthException catch (e) {
-        print("No se pudo inicar");
+        // ignore: avoid_print
+        print(e.toString());
       }
     }
   }

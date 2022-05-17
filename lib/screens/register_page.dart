@@ -38,6 +38,9 @@ class _RegisterPageState extends State<RegisterPage> {
         _passwordFocusNode.unfocus();
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Formulario Registro"),
+        ),
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -108,6 +111,30 @@ class _RegisterPageState extends State<RegisterPage> {
                             padding: EdgeInsets.all(16.0),
                             child: Text(
                               'Registrarse',
+                              style: TextStyle(fontSize: 22.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                const SizedBox(height: 16),
+                _isProgress
+                    ? const CircularProgressIndicator()
+                    : SizedBox(
+                        width: double.maxFinite,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            setState(() {
+                              _isProgress = true;
+                            });
+                            setState(() {
+                              _isProgress = false;
+                            });
+                            Navigator.of(context).pushNamed("/login_page");
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Text(
+                              'Volver',
                               style: TextStyle(fontSize: 22.0),
                             ),
                           ),
