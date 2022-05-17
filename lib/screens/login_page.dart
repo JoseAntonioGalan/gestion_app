@@ -25,7 +25,9 @@ class _LoginPageState extends State<LoginPage> {
 
   final _authClient = AuthenticationClient();
 
-  bool _isProgress = false;
+  bool _isProgressEmail = false;
+
+  bool _isProgressGoogle = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                _isProgress
+                _isProgressEmail
                     ? const CircularProgressIndicator()
                     : SizedBox(
                         width: double.maxFinite,
@@ -74,16 +76,15 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               setState(() {
-                                _isProgress = true;
+                                _isProgressEmail = true;
                               });
                               final User? user = await _authClient.loginUser(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               );
                               setState(() {
-                                _isProgress = false;
+                                _isProgressEmail = false;
                               });
-                              print(user);
                               if (user != null) {
                                 var login = Provider.of<LoginState>(context,
                                     listen: false);
@@ -95,6 +96,36 @@ class _LoginPageState extends State<LoginPage> {
                             padding: EdgeInsets.all(16.0),
                             child: Text(
                               'Iniciar Sesión',
+                              style: TextStyle(fontSize: 22.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                const SizedBox(height: 24),
+                _isProgressGoogle
+                    ? const CircularProgressIndicator()
+                    : SizedBox(
+                        width: double.maxFinite,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            setState(() {
+                              _isProgressGoogle = true;
+                            });
+                            final User? user =
+                                await _authClient.loginWithGoogle(context);
+                            setState(() {
+                              _isProgressGoogle = false;
+                            });
+                            if (user != null) {
+                              var login = Provider.of<LoginState>(context,
+                                  listen: false);
+                              login.login();
+                            }
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Text(
+                              'Iniciar Sesión con Google',
                               style: TextStyle(fontSize: 22.0),
                             ),
                           ),

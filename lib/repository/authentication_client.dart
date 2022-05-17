@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationClient {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -48,6 +50,27 @@ class AuthenticationClient {
     }
 
     return user;
+  }
+
+  loginWithGoogle(BuildContext context) async {
+    GoogleSignIn objGoogleSignIn = GoogleSignIn();
+    GoogleSignInAccount? objGOogleSignInAccount =
+        await objGoogleSignIn.signIn();
+    if (objGOogleSignInAccount != null) {
+      GoogleSignInAuthentication objGoogleSignInAuthentication =
+          await objGOogleSignInAccount.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: objGoogleSignInAuthentication.accessToken,
+          idToken: objGoogleSignInAuthentication.idToken);
+      try {
+        UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+        User? user = userCredential.user;
+        return user;
+      } on FirebaseAuthException catch (e) {
+        print("No se pudo inicar");
+      }
+    }
   }
 
   logoutUser() async {
