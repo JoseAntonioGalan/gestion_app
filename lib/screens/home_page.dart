@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
         onPressed: () {
           // ignore: avoid_print
-          print("Has pulsado añadir");
+          Navigator.of(context).pushNamed("/add_page");
         },
       ),
       body: _body(),
