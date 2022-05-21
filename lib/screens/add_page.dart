@@ -40,15 +40,19 @@ class _AddPageState extends State<AddPage> {
   }
 
   Widget _body() {
-    return Column(
-      children: <Widget>[
-        _categorySelector(),
-        _name(),
-        _tipe(),
-        _currentValue(),
-        _numpad(),
-        _submit()
-      ],
+    return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            _categorySelector(),
+            _name(),
+            _tipe(),
+            _currentValue(),
+            _numpad(),
+            _submit(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -97,8 +101,8 @@ class _AddPageState extends State<AddPage> {
         fallbackHeight: 120,
       );
 
-  Widget _numpad() => Expanded(
-        child: Placeholder(),
+  Widget _numpad() => Placeholder(
+        fallbackHeight: 322,
       );
 
   Widget _submit() => Placeholder(
