@@ -13,7 +13,7 @@ class AddPage extends StatefulWidget {
 
 class _AddPageState extends State<AddPage> {
   final _descripcionController = TextEditingController();
-
+  final _descripcionFocus = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,16 +71,22 @@ class _AddPageState extends State<AddPage> {
     );
   }
 
-  Widget _name() => Container(
-        height: 80,
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: TextFormField(
-            controller: _descripcionController,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Introduce descripcion",
-                label: Text("Descripcion")),
+  Widget _name() => GestureDetector(
+        onTap: () {
+          _descripcionFocus.unfocus();
+        },
+        child: Container(
+          height: 80,
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: _descripcionController,
+              focusNode: _descripcionFocus,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Introduce descripcion",
+                  label: Text("Descripcion")),
+            ),
           ),
         ),
       );
