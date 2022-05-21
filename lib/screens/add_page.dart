@@ -12,6 +12,8 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  final _descripcionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +43,7 @@ class _AddPageState extends State<AddPage> {
     return Column(
       children: <Widget>[
         _categorySelector(),
+        _name(),
         _tipe(),
         _currentValue(),
         _numpad(),
@@ -58,15 +61,31 @@ class _AddPageState extends State<AddPage> {
           "shopping": Icons.shopping_cart,
           "Alcohol": FontAwesomeIcons.beer,
           "Fast Food": FontAwesomeIcons.hamburger,
-          "Bills": FontAwesomeIcons.wallet
+          "Bills": FontAwesomeIcons.wallet,
+          "Wine": FontAwesomeIcons.wineBottle,
+          "Water": FontAwesomeIcons.water,
+          "Movile": FontAwesomeIcons.mobile,
+          "Pedro": FontAwesomeIcons.user
         },
       ),
     );
   }
 
-  Widget _tipe() => Placeholder(
-        fallbackHeight: 80,
+  Widget _name() => Container(
+        height: 80,
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TextFormField(
+            controller: _descripcionController,
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Introduce descripcion",
+                label: Text("Descripcion")),
+          ),
+        ),
       );
+
+  Widget _tipe() => Placeholder(fallbackHeight: 80);
 
   Widget _currentValue() => Placeholder(
         fallbackHeight: 120,
