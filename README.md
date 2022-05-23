@@ -1,6 +1,6 @@
 # gestion_app
 
-A new Flutter project.
+Aplicacion para controlar gastos personales.
 
 ## Getting Started
 
