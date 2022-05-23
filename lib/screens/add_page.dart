@@ -98,7 +98,38 @@ class _AddPageState extends State<AddPage> {
         ),
       );
 
-  Widget _tipe() => Placeholder(fallbackHeight: 80);
+  //80
+  Widget _tipe() {
+    return Container(
+      height: 80.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              width: 180,
+              decoration: BoxDecoration(color: Colors.green.shade50),
+              child: MaterialButton(
+                  child: Text(
+                    "Ingreso",
+                    style:
+                        TextStyle(fontSize: 20.0, color: Colors.green.shade500),
+                  ),
+                  onPressed: () {})),
+          Container(
+            width: 180,
+            decoration: BoxDecoration(color: Colors.red.shade50),
+            child: MaterialButton(
+              child: Text(
+                "Gasto",
+                style: TextStyle(fontSize: 20.0, color: Colors.red.shade500),
+              ),
+              onPressed: () {},
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget _currentValue() {
     return Container(
