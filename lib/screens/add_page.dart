@@ -164,7 +164,9 @@ class _AddPageState extends State<AddPage> {
               }
             }else{
               if(text == ","){
-                value = value + ",";
+                if(!value.contains(text)){
+                  value = value + ",";
+                } 
               }else{
                 value = value + text;
               }
@@ -251,7 +253,11 @@ class _AddPageState extends State<AddPage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-             
+              String resultado = value.replaceAll(",", ".") ;
+              double valorFinal = double.parse(resultado);
+             if(valorFinal > 0){
+               print(valorFinal);
+             }
             },
           ));
     });
