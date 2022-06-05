@@ -15,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late PageController _controller;
-  int currentPage = 9;
+  int currentPage = DateTime.now().month-1;
   late Stream<QuerySnapshot> _query;
 
   late List<QueryDocumentSnapshot<Object?>> datos;

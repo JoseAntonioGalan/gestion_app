@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestion_app/screens/category_selection_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddPage extends StatefulWidget {
   AddPage({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class _AddPageState extends State<AddPage> {
           "Movile": FontAwesomeIcons.mobile,
           "Pedro": FontAwesomeIcons.user
         },
-        onValueChanged: (newCategory) => category = newCategory,
+        onValueChanged: (newCategory) { category = newCategory;},
       ),
     );
   }
@@ -93,6 +94,7 @@ class _AddPageState extends State<AddPage> {
                   border: OutlineInputBorder(),
                   hintText: "Introduce descripcion",
                   label: Text("Descripcion")),
+              
             ),
           ),
         ),
@@ -255,8 +257,25 @@ class _AddPageState extends State<AddPage> {
             onPressed: () {
               String resultado = value.replaceAll(",", ".") ;
               double valorFinal = double.parse(resultado);
-             if(valorFinal > 0){
-               print(valorFinal);
+             if(valorFinal > 0 && category.isNotEmpty && _descripcionController.text.isNotEmpty){
+               // ignore: avoid_single_cascade_in_expression_statements
+               FirebaseFirestore.instance..collection('gastos')
+                .doc()
+                .set(
+                  {
+                    "anyo": DateTime.now().year,
+                    "dia": DateTime.now().day,
+                    "mes": DateTime.now().month,
+                    "nombre": _descripcionController.text,
+                    "valor": valorFinal,
+                    "categoria": category});
+              Navigator.of(context).pop();
+             }else if (_descripcionController.text.isEmpty){
+               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La descripcion no puede estar vacía')),);
+             }else if( valorFinal == 0){
+               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La ingreso/gasto no puede ser 0')),);
+             }else if(category.isEmpty){
+               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Debe seleccionar una categoria')),);
              }
             },
           ));

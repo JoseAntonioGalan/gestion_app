@@ -15,7 +15,7 @@ class CategorySelectionWidget extends StatefulWidget {
 }
 
 class _CategorySelectionWidgetState extends State<CategorySelectionWidget> {
-  String currentItem = "Alcohol";
+  String currentItem = "";
 
   @override
   Widget build(BuildContext context) {
