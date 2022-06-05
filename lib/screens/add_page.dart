@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +6,7 @@ import 'package:gestion_app/screens/category_selection_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddPage extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   AddPage({Key? key}) : super(key: key);
 
   @override
@@ -43,6 +44,7 @@ class _AddPageState extends State<AddPage> {
   }
 
   Widget _body() {
+    // ignore: avoid_unnecessary_containers
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -60,8 +62,10 @@ class _AddPageState extends State<AddPage> {
   }
 
   Widget _categorySelector() {
+    // ignore: sized_box_for_whitespace
     return Container(
       height: 80,
+      // ignore: duplicate_ignore
       child: CategorySelectionWidget(
         // ignore: prefer_const_literals_to_create_immutables, duplicate_ignore
         categories: {
@@ -83,6 +87,7 @@ class _AddPageState extends State<AddPage> {
         onTap: () {
           _descripcionFocus.unfocus();
         },
+        // ignore: sized_box_for_whitespace
         child: Container(
           height: 80,
           child: Padding(
@@ -102,6 +107,7 @@ class _AddPageState extends State<AddPage> {
 
   //80
   Widget _tipe() {
+    // ignore: sized_box_for_whitespace
     return Container(
       height: 80.0,
       child: Row(
@@ -134,6 +140,7 @@ class _AddPageState extends State<AddPage> {
   }
 
   Widget _currentValue() {
+    // ignore: sized_box_for_whitespace
     return Container(
         height: 120,
         child: Center(
@@ -178,6 +185,7 @@ class _AddPageState extends State<AddPage> {
           
         });
       },
+      // ignore: sized_box_for_whitespace
       child: Container(
           height: height,
           child: Center(
@@ -190,6 +198,7 @@ class _AddPageState extends State<AddPage> {
 
   // 322
   Widget _numpad() {
+    // ignore: sized_box_for_whitespace
     return Container(
       height: 322,
       child: LayoutBuilder(
@@ -226,6 +235,7 @@ class _AddPageState extends State<AddPage> {
                     }
                   });
                 },
+                // ignore: sized_box_for_whitespace
                 child: Container(
                     height: height,
                     child: Center(

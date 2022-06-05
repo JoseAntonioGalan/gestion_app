@@ -38,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          // ignore: prefer_const_constructors
           title: Text("Inicio de Sesión"),
         ),
         backgroundColor: Colors.white,
