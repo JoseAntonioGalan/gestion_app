@@ -15,7 +15,7 @@ class _AddPageState extends State<AddPage> {
   final _descripcionController = TextEditingController();
   final _descripcionFocus = FocusNode();
   String category = "";
-  double value = 0;
+  String value = "0";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +136,7 @@ class _AddPageState extends State<AddPage> {
         height: 120,
         child: Center(
           child: Text(
-            value.toStringAsFixed(2) + "€",
+            value + "€",
             style: TextStyle(
                 fontSize: 50,
                 color: Colors.deepPurpleAccent,
@@ -150,7 +150,28 @@ class _AddPageState extends State<AddPage> {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         setState(() {
-          value = value * 10 + int.parse(text);
+
+          String primerCaracter = value.substring(0);
+
+          if(primerCaracter == "0" && text == "0"){
+            return ;
+          }else{
+            if(primerCaracter == "0"){
+              if(text == ","){
+                value = "0,";
+              }else{
+                value = text;
+              }
+            }else{
+              if(text == ","){
+                value = value + ",";
+              }else{
+                value = value + text;
+              }
+            }
+          }
+
+          
         });
       },
       child: Container(
@@ -194,7 +215,11 @@ class _AddPageState extends State<AddPage> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    value = value ~/ 10 + (value - value.toInt());
+                    if(value.length == 1){
+                      value = "0";
+                    }else{
+                      value = value.substring(0, value.length - 1);
+                    }
                   });
                 },
                 child: Container(
@@ -226,12 +251,7 @@ class _AddPageState extends State<AddPage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              if (value > 0 && category != "") {
-                Navigator.of(context).pop();
-              } else {
-                Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text("Selecciona valor o categoria")));
-              }
+             
             },
           ));
     });
