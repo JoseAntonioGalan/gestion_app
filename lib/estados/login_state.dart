@@ -12,8 +12,8 @@ class LoginState with ChangeNotifier {
 
   void login(User user) {
     _loggedIn = true;
-    notifyListeners();
     _user = user;
+    notifyListeners();
   }
 
   void logout() {
