@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                               if (user != null) {
                                 var login = Provider.of<LoginState>(context,
                                     listen: false);
-                                login.login();
+                                login.login(user);
                               }
                             }
                           },
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (user != null) {
                               var login = Provider.of<LoginState>(context,
                                   listen: false);
-                              login.login();
+                              login.login(user);
                             }
                           },
                           child: const Padding(

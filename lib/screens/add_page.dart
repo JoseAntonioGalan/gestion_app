@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gestion_app/estados/login_state.dart';
 import 'package:gestion_app/screens/category_selection_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class AddPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -269,7 +271,11 @@ class _AddPageState extends State<AddPage> {
               double valorFinal = double.parse(resultado);
              if(valorFinal > 0 && category.isNotEmpty && _descripcionController.text.isNotEmpty){
                // ignore: avoid_single_cascade_in_expression_statements
-               FirebaseFirestore.instance..collection('gastos')
+               var user = Provider.of<LoginState>(context,listen: false).currentUser();
+               FirebaseFirestore.instance
+                .collection('users')
+                .doc(user!.uid)
+                .collection('gastos')
                 .doc()
                 .set(
                   {

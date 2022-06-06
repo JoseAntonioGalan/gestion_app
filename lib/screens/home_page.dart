@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gestion_app/estados/login_state.dart';
 import 'package:gestion_app/screens/month_widget.dart';
+import 'package:gestion_app/utils/dias_mes.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -24,10 +25,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    _query = FirebaseFirestore.instance
-        .collection('gastos')
-        .where('mes', isEqualTo: currentPage + 1)
-        .snapshots();
 
     _controller = PageController(
       initialPage: currentPage,
@@ -47,34 +44,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        notchMargin: 8.0,
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            // ignore: deprecated_member_use
-            _bottomAction(FontAwesomeIcons.history, () {}),
-            _bottomAction(FontAwesomeIcons.chartPie, () {}),
-            SizedBox(width: 48.0),
-            _bottomAction(FontAwesomeIcons.wallet, () {}),
-            _bottomAction(Icons.settings, () {
-              Provider.of<LoginState>(context, listen: false).logout();
-            }),
-          ],
+
+    return Consumer<LoginState>(
+      builder: (context, value, child) {
+        var user = Provider.of<LoginState>(context,listen: false).currentUser();
+        _query = FirebaseFirestore.instance
+                .collection('users')
+                .doc(user!.uid)
+                .collection('gastos')
+                .where('mes', isEqualTo: currentPage + 1)
+                .snapshots();
+              
+      return Scaffold(
+        bottomNavigationBar: BottomAppBar(
+          notchMargin: 8.0,
+          shape: CircularNotchedRectangle(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              // ignore: deprecated_member_use
+              _bottomAction(FontAwesomeIcons.history, () {}),
+              _bottomAction(FontAwesomeIcons.chartPie, () {}),
+              SizedBox(width: 48.0),
+              _bottomAction(FontAwesomeIcons.wallet, () {}),
+              _bottomAction(Icons.settings, () {
+                Provider.of<LoginState>(context, listen: false).logout();
+              }),
+            ],
+          ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          // ignore: avoid_print
-          Navigator.of(context).pushNamed("/add_page");
-        },
-      ),
-      body: _body(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            // ignore: avoid_print
+            Navigator.of(context).pushNamed("/add_page");
+          },
+        ),
+        body: _body(),
+      );
+      }
     );
   }
 
@@ -90,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
               if (snapshot.hasData) {
                 datos = snapshot.data!.docs;
                 return MonthWidget(
+                  days: daysInMonth(currentPage + 1),
                   datos: datos,
                 );
               } else {
@@ -139,8 +150,11 @@ class _MyHomePageState extends State<MyHomePage> {
       child: PageView(
         onPageChanged: (newPage) {
           setState(() {
+            var user = Provider.of<LoginState>(context,listen: false).currentUser();
             currentPage = newPage;
             _query = FirebaseFirestore.instance
+                .collection('users')
+                .doc(user!.uid)
                 .collection('gastos')
                 .where('mes', isEqualTo: currentPage + 1)
                 .snapshots();
