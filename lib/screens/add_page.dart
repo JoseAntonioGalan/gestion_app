@@ -53,7 +53,6 @@ class _AddPageState extends State<AddPage> {
           children: <Widget>[
             _categorySelector(),
             _name(),
-            _tipe(),
             _currentValue(),
             _numpad(),
             _submit(),
@@ -106,40 +105,6 @@ class _AddPageState extends State<AddPage> {
           ),
         ),
       );
-
-  //80
-  Widget _tipe() {
-    // ignore: sized_box_for_whitespace
-    return Container(
-      height: 80.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-              width: 180,
-              decoration: BoxDecoration(color: Colors.green.shade50),
-              child: MaterialButton(
-                  child: Text(
-                    "Ingreso",
-                    style:
-                        TextStyle(fontSize: 20.0, color: Colors.green.shade500),
-                  ),
-                  onPressed: () {})),
-          Container(
-            width: 180,
-            decoration: BoxDecoration(color: Colors.red.shade50),
-            child: MaterialButton(
-              child: Text(
-                "Gasto",
-                style: TextStyle(fontSize: 20.0, color: Colors.red.shade500),
-              ),
-              onPressed: () {},
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   Widget _currentValue() {
     // ignore: sized_box_for_whitespace
@@ -202,7 +167,7 @@ class _AddPageState extends State<AddPage> {
   Widget _numpad() {
     // ignore: sized_box_for_whitespace
     return Container(
-      height: 322,
+      height: 402,
       child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
         var height = constraints.biggest.height / 4;
@@ -268,8 +233,8 @@ class _AddPageState extends State<AddPage> {
             ),
             onPressed: () {
               String resultado = value.replaceAll(",", ".") ;
-              double valorFinal = double.parse(resultado);
-             if(valorFinal > 0 && category.isNotEmpty && _descripcionController.text.isNotEmpty){
+              double valorFinal = double.parse(resultado) * -1;
+             if(valorFinal < 0 && category.isNotEmpty && _descripcionController.text.isNotEmpty){
                // ignore: avoid_single_cascade_in_expression_statements
                var user = Provider.of<LoginState>(context,listen: false).currentUser();
                FirebaseFirestore.instance

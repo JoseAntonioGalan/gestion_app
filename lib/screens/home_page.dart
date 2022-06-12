@@ -64,11 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               // ignore: deprecated_member_use
-              _bottomAction(FontAwesomeIcons.history, () {}),
+              _bottomAction(FontAwesomeIcons.moneyBillTrendUp, () {}),
               _bottomAction(FontAwesomeIcons.chartPie, () {}),
               SizedBox(width: 48.0),
               _bottomAction(FontAwesomeIcons.wallet, () {}),
-              _bottomAction(Icons.settings, () {
+              _bottomAction(FontAwesomeIcons.arrowRightFromBracket, () {
                 Provider.of<LoginState>(context, listen: false).logout();
               }),
             ],
