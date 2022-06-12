@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_app/estados/login_state.dart';
 import 'package:gestion_app/firebase_options.dart';
+import 'package:gestion_app/screens/add_entry.dart';
 import 'package:gestion_app/screens/add_page.dart';
 import 'package:gestion_app/screens/home_page.dart';
 import 'package:gestion_app/screens/login_page.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           "/register_page": (context) => const RegisterPage(),
           "/login_page": (context) => const LoginPage(),
           "/add_page": (context) => AddPage(),
+          "/add_entry": ((context) => AddEntry())
         },
       ),
     );

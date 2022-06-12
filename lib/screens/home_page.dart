@@ -64,7 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               // ignore: deprecated_member_use
-              _bottomAction(FontAwesomeIcons.moneyBillTrendUp, () {}),
+              _bottomAction(FontAwesomeIcons.moneyBillTrendUp, () {
+                Navigator.of(context).pushNamed("/add_entry");
+              }),
               _bottomAction(FontAwesomeIcons.chartPie, () {}),
               SizedBox(width: 48.0),
               _bottomAction(FontAwesomeIcons.wallet, () {}),
